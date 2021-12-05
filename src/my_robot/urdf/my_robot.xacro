@@ -1,26 +1,8 @@
 <?xml version='1.0'?>
 
 <robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <material name="blue">
-    <color rgba="0.0 0.0 0.8 1.0"/>
-  </material>
 
-  <material name="green">
-    <color rgba="0.0 0.8 0.0 1.0"/>
-  </material>
-
-  <material name="gray">
-    <color rgba="0.7 0.7 0.7 1.0"/>
-  </material>
-
-  <material name="darkgray">
-    <color rgba="0.3 0.3 0.3 1.0"/>
-  </material>
-
-  <material name="red">
-    <color rgba="0.8 0.0 0.0 1.0"/>
-  </material>
-
+  <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
   <link name="robot_footprint"></link>
 
   <joint name="robot_footprint_joint" type="fixed">
@@ -87,6 +69,9 @@
     </visual>
 
   </link>
+  <gazebo reference="chassis"> 
+    <material>Gazebo/Blue</material> 
+  </gazebo> 
 
   <link name='left_wheel'>
 
@@ -112,9 +97,11 @@
       <geometry>
         <cylinder radius=".1" length=".05"/>
       </geometry>
-      <material name="green"/>
     </visual>
   </link>
+  <gazebo reference="left_wheel"> 
+    <material>Gazebo/Red</material> 
+  </gazebo> 
 
   <link name='right_wheel'>
 
@@ -140,9 +127,11 @@
       <geometry>
         <cylinder radius=".1" length=".05"/>
       </geometry>
-      <material name="green"/>
     </visual>
   </link>
+  <gazebo reference="right_wheel"> 
+    <material>Gazebo/Red</material> 
+  </gazebo> 
 
   <joint type="continuous" name="left_wheel_hinge">
     <origin xyz="0 0.15 0" rpy="0 0 0"/>
