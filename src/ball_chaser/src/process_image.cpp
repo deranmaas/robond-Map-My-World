@@ -66,11 +66,9 @@ void process_image_callback(const sensor_msgs::Image img)
         drive_robot(0, 0.2);
     else if (white_pixels_right > white_pixels_center)
         drive_robot(0, -0.2);
-    else if (white_pixels_center < 300)
-        drive_robot(0, 0);  // forward
     else
-        drive_robot(0, 0);  // very close -> stop
-
+        drive_robot(0.2, 0);  // forward
+    
 
     // std::stringstream msg;
     // msg << std::fixed << std::setprecision(1);
