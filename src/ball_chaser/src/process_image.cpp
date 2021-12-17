@@ -20,7 +20,7 @@ void drive_robot(float lin_x, float ang_z)
 
 bool pixel_is_white(const sensor_msgs::Image img, uint32_t row, uint32_t col)
 {
-    uint32_t offset = row * img.step + 3*col;
+    int offset = row * img.step + 3*col;
     int white_pixel = 255;
 
     return (img.data[offset] == white_pixel) &&  (img.data[offset+1] == white_pixel) &&  (img.data[offset+2] == white_pixel);
@@ -41,23 +41,16 @@ void process_image_callback(const sensor_msgs::Image img)
     int white_pixels_center = 0;
     int white_pixels_right = 0;
 
-    for (int c = 0; c < 200; c+=10) {
-        for (int r = 0; r < img.height; r+=10) {
+    for (int r = 0; r < img.height; r+=80) {
+        for (int c = 0; c < 200; c+=40)
             if (pixel_is_white(img, r, c))
                 white_pixels_left++;
-        }
-    }
-    for (int c = 200; c < 600; c+=10) {
-        for (int r = 0; r < img.height; r+=10) {
+        for (int c = 200; c < 600; c+=40)
             if (pixel_is_white(img, r, c))
                 white_pixels_center++;
-        }
-    }
-    for (int c = 600; c < 800; c+=10) {
-        for (int r = 0; r < img.height; r+=10) {
+        for (int c = 600; c < 800; c+=40)
             if (pixel_is_white(img, r, c))
                 white_pixels_right++;
-        }
     }
 
     if (white_pixels_center == 0 && white_pixels_left==0 && white_pixels_right==0)
